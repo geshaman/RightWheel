@@ -19,6 +19,18 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
+
+app.MapGet("/health", async (AppDbContext db) =>
+{
+    var ok = await db.Database.CanConnectAsync();
+    return ok ? Results.Ok(new { status = "ok" }) : Results.StatusCode(503);
+});
+
 app.MapControllers();
 
 app.Run();
