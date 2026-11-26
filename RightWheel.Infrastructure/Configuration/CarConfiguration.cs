@@ -26,6 +26,11 @@ namespace RightWheel.Infrastructure.Configuration
             builder.Property(c => c.Engine)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.HasData(
+                new Car { Id = 1, Brand = "Toyota", Model = "Carina", Engine = "1.5 л" },
+                new Car { Id = 2, Brand = "Toyota", Model = "Corona", Engine = "1.8 л" },
+                new Car { Id = 3, Brand = "Toyota", Model = "Almera", Engine = "1.5 л" });
         }
     }
 }

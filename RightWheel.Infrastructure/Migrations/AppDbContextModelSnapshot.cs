@@ -81,6 +81,29 @@ namespace RightWheel.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("cars", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Brand = "Toyota",
+                            Engine = "1.5 л",
+                            Model = "Carina"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Brand = "Toyota",
+                            Engine = "1.8 л",
+                            Model = "Corona"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Brand = "Toyota",
+                            Engine = "1.5 л",
+                            Model = "Almera"
+                        });
                 });
 
             modelBuilder.Entity("RightWheel.Domain.Models.Category", b =>
