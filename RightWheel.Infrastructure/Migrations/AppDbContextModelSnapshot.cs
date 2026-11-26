@@ -236,6 +236,32 @@ namespace RightWheel.Infrastructure.Migrations
                         {
                             t.HasCheckConstraint("CK_Parts_Quantity_NonNegative", "\"Quantity\" >= 0");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Description = "Передние тормозные колодки Bosch. Высокая износостойкость и эффективное торможение.",
+                            Name = "Тормозные колодки Bosch",
+                            Price = 3500m,
+                            Quantity = 25
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Description = "Масляный фильтр для очистки моторного масла от загрязнений.",
+                            Name = "Масляный фильтр Mann-Filter",
+                            Price = 1200m,
+                            Quantity = 40
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Description = "Газомасляный амортизатор для обеспечения устойчивости и комфорта автомобиля.",
+                            Name = "Амортизатор KYB Excel-G",
+                            Price = 7800m,
+                            Quantity = 12
+                        });
                 });
 
             modelBuilder.Entity("RightWheel.Domain.Models.PartImage", b =>
