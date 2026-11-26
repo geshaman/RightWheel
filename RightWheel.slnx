@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="RightWheel.Application/RightWheel.Application.csproj" />
+  <Project Path="RightWheel.Domain/RightWheel.Domain.csproj" />
+  <Project Path="RightWheel.Infrastructure/RightWheel.Infrastructure.csproj" />
+  <Project Path="RightWheel/RightWheel.API.csproj" />
+</Solution>
