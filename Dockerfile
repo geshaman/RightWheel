@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet publish "C:\Users\T480\source\repos\RightWheel\RightWheel.API\RightWheel.API.csproj" -c Release -o /app
+RUN dotnet publish RightWheel.API/RightWheel.API.csproj -c Release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /app .
-ENV ASPNETCORE_URLS=http://0.0.0.0:${PORT}
-ENTRYPOINT ["dotnet", "RightWheel.API.dll"]
+CMD ["sh", "-c", "ASPNETCORE_URLS=http://0.0.0.0:${PORT:-8080} dotnet RightWheel.API.dll"]
