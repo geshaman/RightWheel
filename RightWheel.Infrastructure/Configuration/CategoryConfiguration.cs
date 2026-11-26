@@ -19,6 +19,23 @@ namespace RightWheel.Infrastructure.Configuration
             builder.HasOne(c => c.ParentCategory)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Кузовные детали",
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Оптика"
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Двигатели"
+                });
         }
     }
 }

@@ -104,6 +104,23 @@ namespace RightWheel.Infrastructure.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Кузовные детали"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Оптика"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Двигатели"
+                        });
                 });
 
             modelBuilder.Entity("RightWheel.Domain.Models.Order", b =>
