@@ -195,6 +195,9 @@ namespace RightWheel.Infrastructure.Migrations
                     b.Property<int>("PartQuantity")
                         .HasColumnType("integer");
 
+                    b.Property<decimal>("PriceAtOrder")
+                        .HasColumnType("numeric");
+
                     b.HasKey("OrderId", "PartId");
 
                     b.HasIndex("PartId");

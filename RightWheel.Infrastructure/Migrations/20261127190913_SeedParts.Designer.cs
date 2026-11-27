@@ -12,7 +12,7 @@ using RightWheel.Infrastructure;
 namespace RightWheel.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261126185612_SeedParts")]
+    [Migration("20261127190913_SeedParts")]
     partial class SeedParts
     {
         /// <inheritdoc />
