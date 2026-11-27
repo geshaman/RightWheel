@@ -13,11 +13,16 @@ namespace RightWheel.API.Controllers
         public PartsController(AppDbContext db) => _db = db;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
         {
-            var parts = await _db.Parts
+            if (pageSize > 50 || page < 1 || pageSize <= 0) return BadRequest();
+            var query = _db.Parts
                 .AsNoTracking()
+                .Where(p => p.Quantity > 0);
+            var total = await query.CountAsync();
+            var items = await query
                 .OrderBy(p => p.Name)
+                .ThenBy(p => p.Id)
                 .Select(p => new
                 {
                     p.Id,
@@ -26,12 +31,31 @@ namespace RightWheel.API.Controllers
                     p.Quantity,
                     p.Description,
                     p.Position,
-                    p.Images,
-                    p.Categories,
-                    p.Cars
+                    Images = p.Images
+                        .Select(i => i.ImageUrl)
+                        .ToList(),
+                    Categories = p.Categories
+                        .Select(c => new 
+                        {
+                            c.Id,
+                            c.Name,
+                            c.ParentCategoryId
+                        })
+                        .ToList(),
+                    Cars = p.Cars
+                        .Select(c => new
+                        {
+                            c.Id,
+                            c.Brand,
+                            c.Model,
+                            c.Engine,
+                        })
+                        .ToList()
                 })
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
-            return Ok(parts);
+            return Ok(new {items, total});
         }
 
         [HttpGet("{id:long}")]
@@ -51,7 +75,14 @@ namespace RightWheel.API.Controllers
                     Images = p.Images
                         .Select(i => i.ImageUrl)
                         .ToList(),
-                    p.Categories,
+                    Categories = p.Categories
+                        .Select(c => new
+                        {
+                            c.Id,
+                            c.Name,
+                            c.ParentCategoryId
+                        })
+                        .ToList(),
                     Cars = p.Cars
                         .Select(c => new
                         {
